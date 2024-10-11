@@ -461,6 +461,9 @@
 		// Initialization
 		loadSongList();
 		loadPlayers();
+		if (songCreationField.value.trim() === "") {
+			submitButton.disabled = true;
+		}
 
 		// Events
 		document.addEventListener("keydown", (event) => {
