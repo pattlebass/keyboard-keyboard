@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Keyboard Keyboard</title>
+		<link rel="icon" type="image/png" href="/favicon/favicon-48x48.png" sizes="48x48" />
+		<link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+		<link rel="shortcut icon" href="/favicon/favicon.ico" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+		<meta name="apple-mobile-web-app-title" content="MyWebSite" />
+		<link rel="manifest" href="/favicon/site.webmanifest" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			html {
+				background-color: #b5ecf2;
+				font-family: "Poppins", sans-serif;
+
+				height: 100%;
+			}
+
+			body {
+				height: 100%;
+				box-sizing: border-box;
+				margin: 0;
+				padding: 12px;
+			}
+
+			main {
+				display: flex;
+				flex-direction: column;
+				height: 100%;
+			}
+
+			.title {
+				text-align: center;
+				font-size: 48px;
+				margin: 32px 0 0;
+			}
+
+			.subtitle {
+				text-align: center;
+				font-size: 24px;
+				margin: 16px;
+			}
+
+			a {
+				text-decoration-style: dashed;
+				text-decoration-color: #00000052;
+				text-decoration-thickness: 2px;
+				color: #000;
+			}
+
+			.wrapper {
+				margin: 100px auto;
+				display: flex;
+				flex-direction: row;
+				gap: 64px;
+			}
+
+			.song-display {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+
+				margin: 0 auto;
+				gap: 30px;
+			}
+
+			#song-select {
+				margin: 0 16px;
+			}
+
+			.button:focus-visible,
+			button:focus-visible,
+			textarea:focus-visible,
+			summary:focus-visible {
+				outline: #2d6df7 5px solid;
+			}
+
+			.button {
+				margin: 16px;
+				padding: 16px;
+
+				background-color: #d8eff2;
+
+				border-width: 0;
+				outline: none;
+				border-radius: 16px;
+				box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+
+				cursor: pointer;
+			}
+
+			select {
+				font-size: 18px;
+			}
+
+			.title-container {
+				-webkit-user-select: none;
+				user-select: none;
+			}
+
+			.title-container > label {
+				margin-right: 16px;
+				font-size: 18px;
+			}
+
+			#song-label {
+				font-size: 16px;
+			}
+
+			.numpad-wrapper {
+				position: relative;
+			}
+
+			.wire {
+				position: absolute;
+				stroke: #d8eff2;
+				top: -300px;
+				left: 16px;
+				z-index: -1;
+
+				border-width: 0;
+				outline: none;
+				border-radius: 16px;
+				filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.3));
+			}
+
+			.numpad {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				grid-template-rows: repeat(4, 1fr);
+				gap: 12px;
+
+				width: fit-content;
+				padding: 16px;
+
+				background-color: #d8eff2;
+
+				border-width: 0;
+				outline: none;
+				border-radius: 16px;
+				box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+
+				font-size: 16px;
+			}
+
+			.numpad-key {
+				height: 64px;
+				aspect-ratio: 1;
+				padding: 8px;
+				margin: 0;
+				-webkit-user-select: none;
+				user-select: none;
+			}
+
+			.numpad-key-pressed {
+				box-shadow: none;
+				outline: 2px #c3d8db solid;
+			}
+
+			#key0 {
+				aspect-ratio: revert;
+				grid-area: 4 / 1 / 5 / 3;
+			}
+
+			.submit-song {
+				display: flex;
+				margin-top: auto;
+			}
+
+			.submit-song button {
+				font-size: 18px;
+				margin: 16px;
+				cursor: pointer;
+			}
+
+			.submit-song button:active {
+				box-shadow: none;
+				outline: 2px #c3d8db solid;
+			}
+
+			details > summary {
+				cursor: pointer;
+			}
+
+			textarea {
+				padding: 16px;
+
+				background-color: #d8eff2;
+
+				border-width: 0;
+				outline: none;
+				border-radius: 16px;
+				box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+
+				font-size: 16px;
+			}
+
+			#volume-button {
+				border: 0;
+				margin: 0;
+				height: 64px;
+				width: 64px;
+				padding: 8px;
+				cursor: pointer;
+				background: transparent;
+			}
+
+			#volume-button svg {
+				width: 64px;
+				height: 64px;
+				fill: #adc0c2;
+			}
+
+			#volume-button svg path {
+				stroke: #adc0c2;
+			}
+
+			@media only screen and (max-width: 1000px) {
+				.wrapper {
+					flex-direction: column;
+					align-items: center;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<h1 class="title">Keyboard Keyboard</h1>
+			<p class="subtitle">by <a href="https://pattlebass.github.io">Fabian S. (pattle_bass)</a></p>
+			<div class="wrapper">
+				<div class="numpad-wrapper">
+					<svg
+						class="wire"
+						xmlns="http://www.w3.org/2000/svg"
+						width="80"
+						height="320"
+						viewBox="0 0 8 32"
+						aria-hidden="true"
+					>
+						<path d="M3.2-.8C9.2 10-1 28.2 4 33" stroke-width="1" fill="none" />
+					</svg>
+					<div class="numpad">
+						<div
+							class="numpad-key button"
+							id="key7"
+							onmousedown="playNote(7);pressKey(7)"
+							onmouseup="unpressKey(7)"
+							onmouseleave="unpressKey(7)"
+							aria-hidden="true"
+						>
+							7
+						</div>
+						<div
+							class="numpad-key button"
+							id="key8"
+							onmousedown="playNote(8);pressKey(8)"
+							onmouseup="unpressKey(8)"
+							onmouseleave="unpressKey(8)"
+							aria-hidden="true"
+						>
+							8
+						</div>
+						<div
+							class="numpad-key button"
+							id="key9"
+							onmousedown="playNote(9);pressKey(9)"
+							onmouseup="unpressKey(9)"
+							onmouseleave="unpressKey(9)"
+							aria-hidden="true"
+						>
+							9
+						</div>
+						<div
+							class="numpad-key button"
+							id="key4"
+							onmousedown="playNote(4);pressKey(4)"
+							onmouseup="unpressKey(4)"
+							onmouseleave="unpressKey(4)"
+							aria-hidden="true"
+						>
+							4
+						</div>
+						<div
+							class="numpad-key button"
+							id="key5"
+							onmousedown="playNote(5);pressKey(5)"
+							onmouseup="unpressKey(5)"
+							onmouseleave="unpressKey(5)"
+							aria-hidden="true"
+						>
+							5
+						</div>
+						<div
+							class="numpad-key button"
+							id="key6"
+							onmousedown="playNote(6);pressKey(6)"
+							onmouseup="unpressKey(6)"
+							onmouseleave="unpressKey(6)"
+							aria-hidden="true"
+						>
+							6
+						</div>
+						<div
+							class="numpad-key button"
+							id="key1"
+							onmousedown="playNote(1);pressKey(1)"
+							onmouseup="unpressKey(1)"
+							onmouseleave="unpressKey(1)"
+							aria-hidden="true"
+						>
+							1
+						</div>
+						<div
+							class="numpad-key button"
+							id="key2"
+							onmousedown="playNote(2);pressKey(2)"
+							onmouseup="unpressKey(2)"
+							onmouseleave="unpressKey(2)"
+							aria-hidden="true"
+						>
+							2
+						</div>
+						<div
+							class="numpad-key button"
+							id="key3"
+							onmousedown="playNote(3);pressKey(3)"
+							onmouseup="unpressKey(3)"
+							onmouseleave="unpressKey(3)"
+							aria-hidden="true"
+						>
+							3
+						</div>
+						<div
+							class="numpad-key button"
+							id="key0"
+							onmousedown="playNote(0);pressKey(0)"
+							onmouseup="unpressKey(0)"
+							onmouseleave="unpressKey(0)"
+							aria-hidden="true"
+						>
+							0
+						</div>
+						<button id="volume-button" type="button" role="button" aria-label="Volume" tabindex="0">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								version="1.0"
+								viewBox="0 0 75 75"
+								aria-hidden="true"
+							>
+								<path
+									d="M39.389 13.769 22.235 28.606 6 28.606 6 47.699 21.989 47.699 39.389 62.75 39.389 13.769z"
+									style="stroke-width: 5; stroke-linejoin: round"
+								/>
+								<path
+									id="volume-icon-line1"
+									d="M48 27.6a19.5 19.5 0 0 1 0 21.4"
+									style="fill: none; stroke-width: 5; stroke-linecap: round"
+								/>
+								<path
+									id="volume-icon-line2"
+									d="M55.1 20.5a30 30 0 0 1 0 35.6"
+									style="fill: none; stroke-width: 5; stroke-linecap: round"
+								/>
+								<path
+									id="volume-icon-line3"
+									d="M61.6 14a38.8 38.8 0 0 1 0 48.6"
+									style="fill: none; stroke-width: 5; stroke-linecap: round"
+								/>
+							</svg>
+						</button>
+					</div>
+				</div>
+				<div class="song-display">
+					<div class="title-container">
+						<label for="song-select">Song</label>
+						<select id="song-select" class="button"></select>
+					</div>
+					<pre id="song-label"></pre>
+				</div>
+			</div>
+			<details class="submit-song">
+				<summary>Submit song</summary>
+				<textarea
+					type="text"
+					id="song-field"
+					rows="30"
+					cols="40"
+					maxlength="5000"
+					placeholder="A digit (0 - 9) represents a single note. For a 200ms pause use a dash (-) and for a 400ms pause use a newline."
+				></textarea>
+				<div>
+					<button onclick="playSong()" type="button" id="play-button" class="button">Play</button>
+					<button onclick="submitSong()" type="button" id="submit-button" class="button">
+						Submit
+					</button>
+				</div>
+			</details>
+		</main>
+	</body>
+	<script>
+		const songSelect = document.getElementById("song-select");
+		const songLabel = document.getElementById("song-label");
+		const songCreationField = document.getElementById("song-field");
+		const playButton = document.getElementById("play-button");
+		const submitButton = document.getElementById("submit-button");
+		const volumeButton = document.getElementById("volume-button");
+
+		const samples = [
+			"sounds/e2.mp3",
+			"sounds/c1.mp3",
+			"sounds/d1.mp3",
+			"sounds/e1.mp3",
+			"sounds/f1.mp3",
+			"sounds/g1.mp3",
+			"sounds/a1.mp3",
+			"sounds/b1.mp3",
+			"sounds/c2.mp3",
+			"sounds/d2.mp3",
+		];
+		const songs = [
+			{
+				title: "Never gonna give you up",
+				song: `2-3-4-2-6-6-5 (never gonna give you up)\n\n1-2-3-1-5-5-4-3-2 (never gonna let you down)\n\n2-2-4-2-4-5-3-2-1-1-5-4 (never gonna run around and desert you)\n\n2-3-4-2-6-6-5 (never gonna make you cry)\n\n1-2-3-1-8-3-4-3-2 (never gonna say goodbye)\n\n2-3-4-2-4-5-3-2-1-1-5-4 (never gonna tell a lie and hurt you)`,
+			},
+			{
+				title: "Up Theme Song",
+				song: `4--6--4--3\n\n\n4--6--3--2\n\n\n2--4--2--1\n\n\n2--6--5\n\n\n2--6--5\n\n\n4--2\n\n\n4--5--4--3\n\n\n3--5--3--1\n\n\n8--0--8--7`,
+			},
+			{
+				title: "Among Us Drip",
+				song: `2-4-5-6-5-4-2\n\n1-3-2\n\n2-4-5-6-5-4-6\n\n6-5-4-6-5-4-2`,
+			},
+			{
+				title: "Ode to Joy",
+				song: `3--3--4--5--5--4--3--2--1--1--2--3--3\n\n2-2\n\n3--3--4--5--5--4--3--2--1--1--2--3--2\n\n1-1\n\n2--2--3--1--2--3-4-3--1--2--3-4-3--2--1--2--2\n\n3--3--4--5--5--4--3--2--1--1--2--3--2\n\n1-1`,
+			},
+			{
+				title: "You are my sunshine",
+				song: `2--5--6--7--7 (you are my sunshine)\n\n7--6--7--5--5 (my only sunshine)\n\n5--6--7--8--0 (you make me happy)\n\n0--9--8--7 (when skies are grey)\n\n5--6--7--8--0 (you'll never know dear)\n\n0--9--8--7--5 (how much i love you)\n\n5--6--7 (please dont take)\n\n8--7--6--6--5 (my sunshine away)`,
+			},
+			{
+				title: "USSR Anthem",
+				song: `5--8\n\n5--6--7\n\n3--3--6\n\n5--4--5\n\n1--1--2\n\n2--3--4\n\n4--5--6\n\n7--8--9\n\n5--5--0\n\n9--8--9\n\n5--5--8\n\n7--6--7\n\n3--3--6\n\n5--4--5\n\n1--1--8\n\n7--6--5`,
+			},
+			{
+				title: "Gigachad",
+				song: `7--7--7--9--8\n\n7--7--7--9--8\n\n7--7--7--9--8\n\n7-3-7-3-7`,
+			},
+		];
+		const players = [];
+		let volumePercentage = 100;
+
+		// Initialization
+		loadSongList();
+		loadPlayers();
+
+		// Events
+		document.addEventListener("keydown", (event) => {
+			if (!event.repeat && isNumeric(event.key)) {
+				playNote(Number(event.key));
+				pressKey(event.key);
+			}
+		});
+
+		document.addEventListener("keyup", (event) => {
+			if (isNumeric(event.key)) {
+				unpressKey(event.key);
+			}
+		});
+
+		songSelect.addEventListener("change", (event) => {
+			songLabel.innerText = songs[songSelect.value].song;
+		});
+
+		volumeButton.addEventListener("click", (event) => {
+			if (volumePercentage === 100) {
+				volumePercentage = 33;
+
+				// HACK
+				document.getElementById("volume-icon-line1").style.visibility = "visible";
+				document.getElementById("volume-icon-line2").style.visibility = "hidden";
+				document.getElementById("volume-icon-line3").style.visibility = "hidden";
+			} else if (volumePercentage === 33) {
+				volumePercentage = 66;
+
+				document.getElementById("volume-icon-line1").style.visibility = "visible";
+				document.getElementById("volume-icon-line2").style.visibility = "visible";
+				document.getElementById("volume-icon-line3").style.visibility = "hidden";
+			} else if (volumePercentage === 66) {
+				volumePercentage = 100;
+
+				document.getElementById("volume-icon-line1").style.visibility = "visible";
+				document.getElementById("volume-icon-line2").style.visibility = "visible";
+				document.getElementById("volume-icon-line3").style.visibility = "visible";
+			}
+
+			for (const notePlayers of players) {
+				for (const player of notePlayers) {
+					player.volume = volumePercentage / 100.0;
+				}
+			}
+		});
+
+		songCreationField.addEventListener("change", (event) => {
+			submitButton.disabled = songCreationField.value.trim() === "";
+		});
+
+		// Functions
+		function loadSongList() {
+			for (const [i, song] of songs.entries()) {
+				const option = document.createElement("option");
+				option.value = i;
+				option.innerText = songs[i].title;
+				songSelect.appendChild(option);
+			}
+			songLabel.innerText = songs[songSelect.value].song;
+		}
+
+		function loadPlayers() {
+			for (let note = 0; note < samples.length * 3; note++) {
+				players.push([]);
+				players[note].push(new Audio(samples[note]));
+
+				// HACK: Wait for cache. Audio() makes a request everytime the src is set.
+				setTimeout(() => {
+					players[note].push(new Audio(samples[note]));
+					players[note].push(new Audio(samples[note]));
+				}, 1000);
+			}
+		}
+
+		function pressKey(i) {
+			const key = document.getElementById("key" + i);
+			key.classList.add("numpad-key-pressed");
+		}
+
+		function unpressKey(i) {
+			const key = document.getElementById("key" + i);
+			key.classList.remove("numpad-key-pressed");
+		}
+
+		async function playSong() {
+			const sequence = songCreationField.value;
+			let ignore = false;
+
+			playButton.disabled = true;
+
+			for (const char of sequence) {
+				if (char === "(") {
+					ignore = true;
+				} else if (char === ")") {
+					ignore = false;
+				}
+
+				if (ignore) {
+					continue;
+				}
+
+				if (isNumeric(char)) {
+					playNote(Number(char));
+				} else if (char === "-") {
+					await timer(200);
+				} else if (char === "\n") {
+					await timer(400);
+				}
+			}
+
+			playButton.disabled = false;
+		}
+
+		function playNote(note) {
+			let freePlayer;
+			let oldestPlayer = players[note][0];
+			for (const [i, player] of players[note].entries()) {
+				if (player.currentTime == 0 || player.ended) {
+					freePlayer = player;
+					break;
+				}
+				if (oldestPlayer.currentTime < player.currentTime) {
+					oldestPlayer = player;
+				}
+			}
+			if (freePlayer != null) {
+				freePlayer.currentTime = 0;
+				freePlayer.play();
+			} else {
+				oldestPlayer.currentTime = 0;
+				oldestPlayer.play();
+			}
+		}
+
+		function submitSong() {
+			let link =
+				deobvs("fZbemh3") +
+				deobvs("XI\\\\TMJI[[\u0016LM^(OUIQT\u0016KWU") +
+				"?subject=[KBKB] Song Suggestion" +
+				`&body=TITLE:<insert song title here>%0D%0ASONG:%0D%0A${encodeURI(
+					songCreationField.value
+				)}`;
+			location.href = link;
+		}
+
+		function deobvs(text) {
+			let new_text = "";
+			for (let i = 0; i < text.length; i++) {
+				new_text += String.fromCharCode(text.charCodeAt(i) + text.length);
+			}
+			return new_text;
+		}
+
+		function obvs(text) {
+			let new_text = "";
+			for (let i = 0; i < text.length; i++) {
+				new_text += String.fromCharCode(text.charCodeAt(i) - text.length);
+			}
+			return new_text;
+		}
+
+		// https://stackoverflow.com/a/44476626
+		const timer = (ms) => new Promise((res) => setTimeout(res, ms));
+
+		// https://stackoverflow.com/a/175787
+		function isNumeric(str) {
+			if (typeof str != "string") return false; // we only process strings!
+			return (
+				!isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+				!isNaN(parseFloat(str))
+			); // ...and ensure strings of whitespace fail
+		}
+	</script>
+</html>
