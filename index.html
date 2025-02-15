@@ -574,7 +574,7 @@
 
 				if (isNumeric(char)) {
 					playNote(Number(char));
-				} else if (char === "-") {
+				} else if ("- ".includes(char)) {
 					await timer(200);
 				} else if (char === "\n") {
 					await timer(400);
