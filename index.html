@@ -148,7 +148,7 @@
 				border-radius: 16px;
 				box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 
-				font-size: 16px;
+				font-size: 20px;
 			}
 
 			.numpad-key {
@@ -168,6 +168,11 @@
 			#key0 {
 				aspect-ratio: revert;
 				grid-area: 4 / 1 / 5 / 3;
+			}
+
+			.numpad-key-note {
+				font-size: 14px;
+				color: #5b6b6b;
 			}
 
 			.submit-song {
@@ -256,7 +261,7 @@
 							onmouseleave="unpressKey(7)"
 							aria-hidden="true"
 						>
-							7
+							7 <span class="numpad-key-note">B2</span>
 						</div>
 						<div
 							class="numpad-key button"
@@ -266,7 +271,7 @@
 							onmouseleave="unpressKey(8)"
 							aria-hidden="true"
 						>
-							8
+							8 <span class="numpad-key-note">C2</span>
 						</div>
 						<div
 							class="numpad-key button"
@@ -276,7 +281,7 @@
 							onmouseleave="unpressKey(9)"
 							aria-hidden="true"
 						>
-							9
+							9 <span class="numpad-key-note">D2</span>
 						</div>
 						<div
 							class="numpad-key button"
@@ -286,7 +291,7 @@
 							onmouseleave="unpressKey(4)"
 							aria-hidden="true"
 						>
-							4
+							4 <span class="numpad-key-note">F1</span>
 						</div>
 						<div
 							class="numpad-key button"
@@ -296,7 +301,7 @@
 							onmouseleave="unpressKey(5)"
 							aria-hidden="true"
 						>
-							5
+							5 <span class="numpad-key-note">G1</span>
 						</div>
 						<div
 							class="numpad-key button"
@@ -306,7 +311,7 @@
 							onmouseleave="unpressKey(6)"
 							aria-hidden="true"
 						>
-							6
+							6 <span class="numpad-key-note">A1</span>
 						</div>
 						<div
 							class="numpad-key button"
@@ -316,7 +321,7 @@
 							onmouseleave="unpressKey(1)"
 							aria-hidden="true"
 						>
-							1
+							1 <span class="numpad-key-note">C1</span>
 						</div>
 						<div
 							class="numpad-key button"
@@ -326,7 +331,7 @@
 							onmouseleave="unpressKey(2)"
 							aria-hidden="true"
 						>
-							2
+							2 <span class="numpad-key-note">D1</span>
 						</div>
 						<div
 							class="numpad-key button"
@@ -336,7 +341,7 @@
 							onmouseleave="unpressKey(3)"
 							aria-hidden="true"
 						>
-							3
+							3 <span class="numpad-key-note">E1</span>
 						</div>
 						<div
 							class="numpad-key button"
@@ -346,7 +351,7 @@
 							onmouseleave="unpressKey(0)"
 							aria-hidden="true"
 						>
-							0
+							0 <span class="numpad-key-note">E2</span>
 						</div>
 						<button id="volume-button" type="button" role="button" aria-label="Volume" tabindex="0">
 							<svg
