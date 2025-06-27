@@ -193,6 +193,13 @@
 				color: #5b6b6b;
 			}
 
+			.footer {
+				display: flex;
+				margin-top: auto;
+				flex-direction: row;
+				justify-content: space-between;
+			}
+
 			.submit-song {
 				display: flex;
 				margin-top: auto;
@@ -409,23 +416,33 @@
 					<pre id="song-label"></pre>
 				</div>
 			</div>
-			<details class="submit-song">
-				<summary>Submit song</summary>
-				<textarea
-					type="text"
-					id="song-field"
-					rows="30"
-					cols="40"
-					maxlength="5000"
-					placeholder="A digit (0 - 9) represents a single note. For a 200ms pause use a dash (-) and for a 400ms pause use a newline."
-				></textarea>
-				<div>
-					<button onclick="playSong()" type="button" id="play-button" class="button">Play</button>
-					<button onclick="submitSong()" type="button" id="submit-button" class="button">
-						Submit
-					</button>
-				</div>
-			</details>
+			<div class="footer">
+				<details class="submit-song">
+					<summary>Submit song</summary>
+					<textarea
+						type="text"
+						id="song-field"
+						rows="30"
+						cols="40"
+						maxlength="5000"
+						placeholder="A digit (0 - 9) represents a single note. For a 200ms pause use a dash (-) and for a 400ms pause use a newline."
+					></textarea>
+					<div>
+						<button onclick="playSong()" type="button" id="play-button" class="button">Play</button>
+						<button onclick="submitSong()" type="button" id="submit-button" class="button">
+							Submit
+						</button>
+					</div>
+				</details>
+				<script
+					type="text/javascript"
+					src="https://storage.ko-fi.com/cdn/widget/Widget_2.js"
+				></script>
+				<script type="text/javascript">
+					kofiwidget2.init("Support me on Ko-fi", "#72a4f2", "U7U81AMD0V");
+					kofiwidget2.draw();
+				</script>
+			</div>
 		</main>
 	</body>
 	<script>
