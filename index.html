@@ -119,6 +119,12 @@
 			}
 
 			.title-container {
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				align-items: center;
+				gap: 16px;
+
 				-webkit-user-select: none;
 				user-select: none;
 			}
@@ -130,6 +136,12 @@
 
 			#song-label {
 				font-size: 16px;
+
+				/* Allow wrapping */
+				white-space: pre-wrap;
+				word-wrap: break-word;
+				overflow-wrap: break-word;
+				max-width: 100%;
 			}
 
 			.numpad-wrapper {
@@ -139,7 +151,7 @@
 			.wire {
 				position: absolute;
 				stroke: #d8eff2;
-				top: -300px;
+				top: -400px;
 				left: 16px;
 				z-index: -1;
 
@@ -197,6 +209,7 @@
 				margin-top: auto;
 				flex-direction: row;
 				justify-content: space-between;
+				gap: 16px;
 			}
 
 			.submit-song {
@@ -252,8 +265,19 @@
 				stroke: #adc0c2;
 			}
 
-			@media only screen and (max-width: 1000px) {
+			@media (max-width: 1000px) {
 				.wrapper {
+					flex-direction: column;
+					align-items: center;
+				}
+			}
+
+			@media (max-width: 400px) {
+				.title-container {
+					flex-direction: column;
+				}
+
+				.footer {
 					flex-direction: column;
 					align-items: center;
 				}
@@ -270,11 +294,11 @@
 						class="wire"
 						xmlns="http://www.w3.org/2000/svg"
 						width="80"
-						height="320"
+						height="420"
 						viewBox="0 0 8 32"
 						aria-hidden="true"
 					>
-						<path d="M3.2-.8C9.2 10-1 28.2 4 33" stroke-width="1" fill="none" />
+						<path d="M.7-6.6C12.4 16.4-.5 27.8 3.9 37.8" stroke-width="1" fill="none" />
 					</svg>
 					<div class="numpad">
 						<div
