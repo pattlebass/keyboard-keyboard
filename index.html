@@ -20,12 +20,11 @@
 			href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
 			rel="stylesheet"
 		/>
-		<link rel="canonical" href="https://pattlebass.github.io/keyboard-keyboard">
+		<link rel="canonical" href="https://pattlebass.github.io/keyboard-keyboard" />
 
 		<script>
 			// Only load on production environment.
-			if (window.location.host !== "pattlebass.github.io")
-				window.goatcounter = { no_onload: true };
+			if (window.location.host !== "pattlebass.github.io") window.goatcounter = { no_onload: true };
 		</script>
 		<script
 			data-goatcounter="https://pattlebass.goatcounter.com/count"
@@ -163,11 +162,6 @@
 			}
 
 			.numpad {
-				display: grid;
-				grid-template-columns: repeat(3, 1fr);
-				grid-template-rows: repeat(4, 1fr);
-				gap: 12px;
-
 				width: fit-content;
 				padding: 16px;
 
@@ -178,7 +172,44 @@
 				border-radius: 16px;
 				box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 
-				font-size: 20px;
+				-webkit-user-select: none;
+				user-select: none;
+			}
+
+			.octave-controls {
+				padding-bottom: 16px;
+
+				font-size: 16px;
+				color: #5b6b6b;
+			}
+
+			.octave-controls-container {
+				display: inline;
+				padding: 0 8px;
+			}
+
+			.octave-icon {
+				vertical-align: middle;
+				fill: #adc0c2;
+			}
+
+			#octave-down-icon.selected {
+				fill: #fa3737;
+			}
+
+			#octave-middle-icon.selected {
+				fill: #fad337;
+			}
+
+			#octave-up-icon.selected {
+				fill: #16fd42;
+			}
+
+			.numpad-key-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				grid-template-rows: repeat(4, 1fr);
+				gap: 12px;
 			}
 
 			.numpad-key {
@@ -186,8 +217,8 @@
 				aspect-ratio: 1;
 				padding: 8px;
 				margin: 0;
-				-webkit-user-select: none;
-				user-select: none;
+
+				font-size: 20px;
 			}
 
 			.numpad-key-pressed {
@@ -303,133 +334,186 @@
 					</svg>
 					<div class="numpad">
 						<div
-							class="numpad-key button"
-							id="key7"
-							onmousedown="playNote(7);pressKey(7)"
-							onmouseup="unpressKey(7)"
-							onmouseleave="unpressKey(7)"
-							aria-hidden="true"
+							class="octave-controls"
+							aria-label="Press - and + to change the octave"
+							title="Press - and + to change the octave"
 						>
-							7 <span class="numpad-key-note">B4</span>
+							Octave
+							<div class="octave-controls-container">
+								<svg
+									class="octave-icon"
+									id="octave-down-icon"
+									xmlns="http://www.w3.org/2000/svg"
+									width="12"
+									height="12"
+									viewBox="0 0 12 12"
+									aria-hidden="true"
+								>
+									<circle cx="6" cy="6" r="6" />
+									<line stroke="white" x1="2" y1="6" x2="10" y2="6" stroke-width="1.5" />
+								</svg>
+								<svg
+									class="octave-icon"
+									id="octave-middle-icon"
+									xmlns="http://www.w3.org/2000/svg"
+									width="12"
+									height="12"
+									viewBox="0 0 12 12"
+									aria-hidden="true"
+								>
+									<circle cx="6" cy="6" r="6" />
+								</svg>
+								<svg
+									class="octave-icon"
+									id="octave-up-icon"
+									xmlns="http://www.w3.org/2000/svg"
+									width="12"
+									height="12"
+									viewBox="0 0 12 12"
+									aria-hidden="true"
+								>
+									<circle cx="6" cy="6" r="6" />
+									<line stroke="white" x1="2" y1="6" x2="10" y2="6" stroke-width="1.5" />
+									<line stroke="white" x1="6" y1="2" x2="6" y2="10" stroke-width="1.5" />
+								</svg>
+							</div>
 						</div>
-						<div
-							class="numpad-key button"
-							id="key8"
-							onmousedown="playNote(8);pressKey(8)"
-							onmouseup="unpressKey(8)"
-							onmouseleave="unpressKey(8)"
-							aria-hidden="true"
-						>
-							8 <span class="numpad-key-note">C5</span>
-						</div>
-						<div
-							class="numpad-key button"
-							id="key9"
-							onmousedown="playNote(9);pressKey(9)"
-							onmouseup="unpressKey(9)"
-							onmouseleave="unpressKey(9)"
-							aria-hidden="true"
-						>
-							9 <span class="numpad-key-note">D5</span>
-						</div>
-						<div
-							class="numpad-key button"
-							id="key4"
-							onmousedown="playNote(4);pressKey(4)"
-							onmouseup="unpressKey(4)"
-							onmouseleave="unpressKey(4)"
-							aria-hidden="true"
-						>
-							4 <span class="numpad-key-note">F4</span>
-						</div>
-						<div
-							class="numpad-key button"
-							id="key5"
-							onmousedown="playNote(5);pressKey(5)"
-							onmouseup="unpressKey(5)"
-							onmouseleave="unpressKey(5)"
-							aria-hidden="true"
-						>
-							5 <span class="numpad-key-note">G4</span>
-						</div>
-						<div
-							class="numpad-key button"
-							id="key6"
-							onmousedown="playNote(6);pressKey(6)"
-							onmouseup="unpressKey(6)"
-							onmouseleave="unpressKey(6)"
-							aria-hidden="true"
-						>
-							6 <span class="numpad-key-note">A4</span>
-						</div>
-						<div
-							class="numpad-key button"
-							id="key1"
-							onmousedown="playNote(1);pressKey(1)"
-							onmouseup="unpressKey(1)"
-							onmouseleave="unpressKey(1)"
-							aria-hidden="true"
-						>
-							1 <span class="numpad-key-note">C4</span>
-						</div>
-						<div
-							class="numpad-key button"
-							id="key2"
-							onmousedown="playNote(2);pressKey(2)"
-							onmouseup="unpressKey(2)"
-							onmouseleave="unpressKey(2)"
-							aria-hidden="true"
-						>
-							2 <span class="numpad-key-note">D4</span>
-						</div>
-						<div
-							class="numpad-key button"
-							id="key3"
-							onmousedown="playNote(3);pressKey(3)"
-							onmouseup="unpressKey(3)"
-							onmouseleave="unpressKey(3)"
-							aria-hidden="true"
-						>
-							3 <span class="numpad-key-note">E4</span>
-						</div>
-						<div
-							class="numpad-key button"
-							id="key0"
-							onmousedown="playNote(0);pressKey(0)"
-							onmouseup="unpressKey(0)"
-							onmouseleave="unpressKey(0)"
-							aria-hidden="true"
-						>
-							0 <span class="numpad-key-note">E5</span>
-						</div>
-						<button id="volume-button" type="button" role="button" aria-label="Volume" tabindex="0">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								version="1.0"
-								viewBox="0 0 75 75"
+						<div class="numpad-key-grid">
+							<div
+								class="numpad-key button"
+								id="key7"
+								onmousedown="playKey(7);pressKey(7)"
+								onmouseup="unpressKey(7)"
+								onmouseleave="unpressKey(7)"
 								aria-hidden="true"
 							>
-								<path
-									d="M39.389 13.769 22.235 28.606 6 28.606 6 47.699 21.989 47.699 39.389 62.75 39.389 13.769z"
-									style="stroke-width: 5; stroke-linejoin: round"
-								/>
-								<path
-									id="volume-icon-line1"
-									d="M48 27.6a19.5 19.5 0 0 1 0 21.4"
-									style="fill: none; stroke-width: 5; stroke-linecap: round"
-								/>
-								<path
-									id="volume-icon-line2"
-									d="M55.1 20.5a30 30 0 0 1 0 35.6"
-									style="fill: none; stroke-width: 5; stroke-linecap: round"
-								/>
-								<path
-									id="volume-icon-line3"
-									d="M61.6 14a38.8 38.8 0 0 1 0 48.6"
-									style="fill: none; stroke-width: 5; stroke-linecap: round"
-								/>
-							</svg>
-						</button>
+								7 <span class="numpad-key-note">B4</span>
+							</div>
+							<div
+								class="numpad-key button"
+								id="key8"
+								onmousedown="playKey(8);pressKey(8)"
+								onmouseup="unpressKey(8)"
+								onmouseleave="unpressKey(8)"
+								aria-hidden="true"
+							>
+								8 <span class="numpad-key-note">C5</span>
+							</div>
+							<div
+								class="numpad-key button"
+								id="key9"
+								onmousedown="playKey(9);pressKey(9)"
+								onmouseup="unpressKey(9)"
+								onmouseleave="unpressKey(9)"
+								aria-hidden="true"
+							>
+								9 <span class="numpad-key-note">D5</span>
+							</div>
+							<div
+								class="numpad-key button"
+								id="key4"
+								onmousedown="playKey(4);pressKey(4)"
+								onmouseup="unpressKey(4)"
+								onmouseleave="unpressKey(4)"
+								aria-hidden="true"
+							>
+								4 <span class="numpad-key-note">F4</span>
+							</div>
+							<div
+								class="numpad-key button"
+								id="key5"
+								onmousedown="playKey(5);pressKey(5)"
+								onmouseup="unpressKey(5)"
+								onmouseleave="unpressKey(5)"
+								aria-hidden="true"
+							>
+								5 <span class="numpad-key-note">G4</span>
+							</div>
+							<div
+								class="numpad-key button"
+								id="key6"
+								onmousedown="playKey(6);pressKey(6)"
+								onmouseup="unpressKey(6)"
+								onmouseleave="unpressKey(6)"
+								aria-hidden="true"
+							>
+								6 <span class="numpad-key-note">A4</span>
+							</div>
+							<div
+								class="numpad-key button"
+								id="key1"
+								onmousedown="playKey(1);pressKey(1)"
+								onmouseup="unpressKey(1)"
+								onmouseleave="unpressKey(1)"
+								aria-hidden="true"
+							>
+								1 <span class="numpad-key-note">C4</span>
+							</div>
+							<div
+								class="numpad-key button"
+								id="key2"
+								onmousedown="playKey(2);pressKey(2)"
+								onmouseup="unpressKey(2)"
+								onmouseleave="unpressKey(2)"
+								aria-hidden="true"
+							>
+								2 <span class="numpad-key-note">D4</span>
+							</div>
+							<div
+								class="numpad-key button"
+								id="key3"
+								onmousedown="playKey(3);pressKey(3)"
+								onmouseup="unpressKey(3)"
+								onmouseleave="unpressKey(3)"
+								aria-hidden="true"
+							>
+								3 <span class="numpad-key-note">E4</span>
+							</div>
+							<div
+								class="numpad-key button"
+								id="key0"
+								onmousedown="playKey(0);pressKey(0)"
+								onmouseup="unpressKey(0)"
+								onmouseleave="unpressKey(0)"
+								aria-hidden="true"
+							>
+								0 <span class="numpad-key-note">E5</span>
+							</div>
+							<button
+								id="volume-button"
+								type="button"
+								role="button"
+								aria-label="Volume"
+								tabindex="0"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									version="1.0"
+									viewBox="0 0 75 75"
+									aria-hidden="true"
+								>
+									<path
+										d="M39.389 13.769 22.235 28.606 6 28.606 6 47.699 21.989 47.699 39.389 62.75 39.389 13.769z"
+										style="stroke-width: 5; stroke-linejoin: round"
+									/>
+									<path
+										id="volume-icon-line1"
+										d="M48 27.6a19.5 19.5 0 0 1 0 21.4"
+										style="fill: none; stroke-width: 5; stroke-linecap: round"
+									/>
+									<path
+										id="volume-icon-line2"
+										d="M55.1 20.5a30 30 0 0 1 0 35.6"
+										style="fill: none; stroke-width: 5; stroke-linecap: round"
+									/>
+									<path
+										id="volume-icon-line3"
+										d="M61.6 14a38.8 38.8 0 0 1 0 48.6"
+										style="fill: none; stroke-width: 5; stroke-linecap: round"
+									/>
+								</svg>
+							</button>
+						</div>
 					</div>
 				</div>
 				<div class="song-display">
@@ -476,19 +560,19 @@
 		const playButton = document.getElementById("play-button");
 		const submitButton = document.getElementById("submit-button");
 		const volumeButton = document.getElementById("volume-button");
-
-		const samples = [
-			"sounds/e5.mp3",
-			"sounds/c4.mp3",
-			"sounds/d4.mp3",
-			"sounds/e4.mp3",
-			"sounds/f4.mp3",
-			"sounds/g4.mp3",
-			"sounds/a4.mp3",
-			"sounds/b4.mp3",
-			"sounds/c5.mp3",
-			"sounds/d5.mp3",
+		const buttons = [
+			document.getElementById("key0"),
+			document.getElementById("key1"),
+			document.getElementById("key2"),
+			document.getElementById("key3"),
+			document.getElementById("key4"),
+			document.getElementById("key5"),
+			document.getElementById("key6"),
+			document.getElementById("key7"),
+			document.getElementById("key8"),
+			document.getElementById("key9"),
 		];
+
 		const songs = [
 			{
 				title: "Never Gonna Give You Up",
@@ -532,24 +616,58 @@
 			},*/
 		];
 		const players = [];
+		const keyToSemitones = {
+			1: 0, // C4
+			2: 2, // D4
+			3: 4, // E4
+			4: 5, // F4
+			5: 7, // G4
+			6: 9, // A4
+			7: 11, // B4
+			8: 12, // C5
+			9: 14, // D5
+			0: 16, // E5
+		};
 		let volumePercentage = 100;
+		let octaveBase = 4;
+		let octaveUp = false;
+		let octaveDown = false;
 
 		// Initialization
 		loadSongList();
 		loadPlayers();
+		refreshOctave();
 		if (songCreationField.value.trim() === "") {
 			submitButton.disabled = true;
 		}
 
 		// Events
 		document.addEventListener("keydown", (event) => {
+			if (!event.repeat && (event.key === "+" || event.key === "=")) {
+				octaveUp = true;
+				refreshOctave();
+			}
+			if (!event.repeat && event.key === "-") {
+				octaveDown = true;
+				refreshOctave();
+			}
+
 			if (!event.repeat && isNumeric(event.key)) {
-				playNote(Number(event.key));
+				playKey(Number(event.key));
 				pressKey(event.key);
 			}
 		});
 
 		document.addEventListener("keyup", (event) => {
+			if (!event.repeat && (event.key === "+" || event.key === "=")) {
+				octaveUp = false;
+				refreshOctave();
+			}
+			if (!event.repeat && event.key === "-") {
+				octaveDown = false;
+				refreshOctave();
+			}
+
 			if (isNumeric(event.key)) {
 				unpressKey(event.key);
 			}
@@ -582,8 +700,10 @@
 			}
 
 			for (const notePlayers of players) {
-				for (const player of notePlayers) {
-					player.volume = volumePercentage / 100.0;
+				if (notePlayers != null) {
+					for (const player of notePlayers) {
+						player.volume = volumePercentage / 100.0;
+					}
 				}
 			}
 		});
@@ -604,16 +724,29 @@
 		}
 
 		function loadPlayers() {
-			for (let note = 0; note < samples.length * 3; note++) {
+			for (let i = 0; i < 23; i++) {
+				players.push(null);
+			}
+
+			for (let note = 23; note < 108; note++) {
+				// C1 -> C8
+				const sampleUrl = `./sounds/note_${note}.mp3`;
 				players.push([]);
-				players[note].push(new Audio(samples[note]));
+				players[note].push(getAudioPlayer(sampleUrl));
 
 				// HACK: Wait for cache. Audio() makes a request everytime the src is set.
 				setTimeout(() => {
-					players[note].push(new Audio(samples[note]));
-					players[note].push(new Audio(samples[note]));
+					players[note].push(getAudioPlayer(sampleUrl));
+					players[note].push(getAudioPlayer(sampleUrl));
 				}, 1000);
 			}
+		}
+
+		function getAudioPlayer(sampleUrl) {
+			const player = new Audio();
+			player.preload = "none";
+			player.src = sampleUrl;
+			return player;
 		}
 
 		function pressKey(i) {
@@ -644,7 +777,7 @@
 				}
 
 				if (isNumeric(char)) {
-					playNote(Number(char));
+					playKey(Number(char));
 				} else if ("- ".includes(char)) {
 					await timer(200);
 				} else if (char === "\n") {
@@ -655,7 +788,10 @@
 			playButton.disabled = false;
 		}
 
-		function playNote(note) {
+		function playKey(key) {
+			const note =
+				12 * (octaveBase + (Number(octaveUp) - Number(octaveDown)) + 1) + keyToSemitones[key];
+
 			let freePlayer;
 			let oldestPlayer = players[note][0];
 			for (const [i, player] of players[note].entries()) {
@@ -673,6 +809,47 @@
 			} else {
 				oldestPlayer.currentTime = 0;
 				oldestPlayer.play();
+			}
+		}
+
+		function refreshOctave() {
+			const octaveDownIcon = document.getElementById("octave-down-icon");
+			const octaveMiddleIcon = document.getElementById("octave-middle-icon");
+			const octaveUpIcon = document.getElementById("octave-up-icon");
+
+			if (octaveUp - octaveDown === 0) {
+				octaveDownIcon.classList.remove("selected");
+				octaveMiddleIcon.classList.add("selected");
+				octaveUpIcon.classList.remove("selected");
+			} else if (octaveUp - octaveDown === 1) {
+				octaveDownIcon.classList.remove("selected");
+				octaveMiddleIcon.classList.remove("selected");
+				octaveUpIcon.classList.add("selected");
+			} else if (octaveUp - octaveDown === -1) {
+				octaveDownIcon.classList.add("selected");
+				octaveMiddleIcon.classList.remove("selected");
+				octaveUpIcon.classList.remove("selected");
+			}
+
+			const semitonesToLetter = {
+				0: "C",
+				1: "C#",
+				2: "D",
+				3: "D#",
+				4: "E",
+				5: "F",
+				6: "F#",
+				7: "G",
+				8: "G#",
+				9: "A",
+				10: "A#",
+				11: "B",
+			};
+
+			for (const [i, button] of buttons.entries()) {
+				const noteLabel = button.querySelector(".numpad-key-note");
+				const octave = Math.floor(keyToSemitones[i] / 12) + octaveBase + (octaveUp - octaveDown);
+				noteLabel.innerText = `${semitonesToLetter[keyToSemitones[i] % 12]}${octave}`;
 			}
 		}
 
