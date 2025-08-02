@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Keyboard Keyboard</title>
+		<link rel="icon" type="image/png" href="./favicon/favicon-48x48.png" sizes="48x48" />
+		<link rel="icon" type="image/svg+xml" href="./favicon/favicon.svg" />
+		<link rel="shortcut icon" href="./favicon/favicon.ico" />
+		<link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png" />
+		<meta name="apple-mobile-web-app-title" content="MyWebSite" />
+		<link rel="manifest" href="./favicon/site.webmanifest" />
+		<meta
+			name="description"
+			content="A musical web toy. Use your numpad or number row keys to play your favorite songs right in the browser!"
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="canonical" href="https://pattlebass.github.io/keyboard-keyboard" />
+
+		<script>
+			// Only load on production environment.
+			if (window.location.host !== "pattlebass.github.io") window.goatcounter = { no_onload: true };
+		</script>
+		<script
+			data-goatcounter="https://pattlebass.goatcounter.com/count"
+			async
+			src="//gc.zgo.at/count.js"
+		></script>
+
+		<link rel="stylesheet" href="src/style.css" />
+		<script type="module" src="src/script.js"></script>
+		<script type="module" src="src/numpad.js"></script>
+	</head>
+	<body>
+		<main>
+			<h1 class="title">Keyboard Keyboard</h1>
+			<p class="subtitle">by <a href="https://pattlebass.github.io">Fabian S. (pattle_bass)</a></p>
+			<div class="wrapper">
+				<div class="numpad-wrapper">
+					<svg
+						class="wire"
+						xmlns="http://www.w3.org/2000/svg"
+						width="80"
+						height="420"
+						viewBox="0 0 8 32"
+						aria-hidden="true"
+					>
+						<path d="M.7-6.6C12.4 16.4-.5 27.8 3.9 37.8" stroke-width="1" fill="none" />
+					</svg>
+					<div class="numpad">
+						<!--BUILD_NUMPAD-->
+					</div>
+				</div>
+				<div class="song-display">
+					<div class="title-container">
+						<label for="song-select">Song</label>
+						<select id="song-select" class="button"></select>
+					</div>
+					<pre id="song-label"></pre>
+				</div>
+			</div>
+			<div class="footer">
+				<details class="submit-song">
+					<summary>Submit song</summary>
+					<textarea
+						type="text"
+						id="song-field"
+						rows="30"
+						cols="40"
+						maxlength="5000"
+						placeholder="A digit (0 - 9) represents a single note. For a 200ms pause use a dash (-) and for a 400ms pause use a newline."
+					></textarea>
+					<div>
+						<button type="button" id="play-button" class="button">Play</button>
+						<button type="button" id="submit-button" class="button">Submit</button>
+					</div>
+				</details>
+				<script
+					type="text/javascript"
+					src="https://storage.ko-fi.com/cdn/widget/Widget_2.js"
+				></script>
+				<script type="text/javascript">
+					kofiwidget2.init("Support me on Ko-fi", "#72a4f2", "U7U81AMD0V");
+					kofiwidget2.draw();
+				</script>
+			</div>
+		</main>
+	</body>
+</html>
