@@ -67,15 +67,13 @@ export function playNote(note) {
 	}
 }
 
-export function playKey(key) {
-	const note = 12 * (octaveBase + 1) + numpad.keyToSemitones[key] + semitoneUp;
-	playNote(note);
-}
-
 export async function playSong(sequence) {
 	let ignore = false;
 
-	for (const char of sequence) {
+	for (let i = 0; i < sequence.length; i++) {
+		const char = sequence[i];
+		const nextChar = sequence[i + 1];
+
 		if (char === "(") {
 			ignore = true;
 		} else if (char === ")") {
@@ -87,7 +85,7 @@ export async function playSong(sequence) {
 		}
 
 		if (isNumeric(char)) {
-			playKey(Number(char));
+			playNote(getNoteFromKey(Number(char), octaveBase, nextChar === "#"));
 		} else if ("- ".includes(char)) {
 			await timer(200);
 		} else if (char === "\n") {
@@ -131,4 +129,9 @@ export function setVolume(value) {
 			}
 		}
 	}
+}
+
+export function getNoteFromKey(key, octave, p_semitoneUp) {
+	const note = 12 * (octave + 1) + numpad.keyToSemitones[key] + p_semitoneUp;
+	return note;
 }

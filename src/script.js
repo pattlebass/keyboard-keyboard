@@ -55,6 +55,7 @@ document.addEventListener("keydown", (event) => {
 		audioManager.setSemitoneUp(true);
 		numpad.setSemitoneUp(audioManager.semitoneUp);
 		numpad.refreshOctave(audioManager.octaveBase, audioManager.semitoneUp);
+		event.preventDefault();
 	}
 
 	if (!event.repeat && event.key === "s") {
@@ -63,7 +64,7 @@ document.addEventListener("keydown", (event) => {
 	}
 
 	if (!event.repeat && utils.isNumeric(event.key)) {
-		audioManager.playKey(Number(event.key));
+		playKey(Number(event.key));
 		numpad.pressKey(event.key);
 	}
 });
@@ -109,13 +110,19 @@ function loadSongList() {
 
 function addNumpadEventListeners() {
 	for (const [i, button] of numpad.buttons.entries()) {
-		button.addEventListener("click", audioManager.playKey.bind(null, i));
+		button.addEventListener("click", playKey.bind(null, i));
 	}
 }
 
 function addSubmissionEventListeners() {
 	playButton.addEventListener("click", playSong);
 	submitButton.addEventListener("click", submitSong);
+}
+
+function playKey(key) {
+	audioManager.playNote(
+		audioManager.getNoteFromKey(key, audioManager.octaveBase, audioManager.semitoneUp)
+	);
 }
 
 async function playSong() {
