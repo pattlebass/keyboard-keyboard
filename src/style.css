@@ -141,32 +141,37 @@ select {
 	user-select: none;
 }
 
-.octave-controls {
-	padding-bottom: 16px;
+.indicators-container {
+	display: flex;
+	flex-direction: row;
+	gap: 6px;
 
+	padding: 0 0 16px 8px;
+}
+
+.indicator {
+	display: flex;
+	flex-direction: column;
+
+	text-align: center;
 	font-size: 16px;
 	color: #5b6b6b;
 }
 
-.octave-controls-container {
-	display: inline;
-	padding: 0 8px;
-}
-
-.octave-icon {
+.indicator-icon {
 	vertical-align: middle;
 	fill: #adc0c2;
 }
 
-#octave-down-icon.selected {
+.indicator-icon.activated {
+	fill: #16fd42;
+}
+
+.octave-down {
 	fill: #fa3737;
 }
 
-#octave-middle-icon.selected {
-	fill: #fad337;
-}
-
-#octave-up-icon.selected {
+.octave-up {
 	fill: #16fd42;
 }
 

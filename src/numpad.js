@@ -11,18 +11,10 @@ export const keyToSemitones = {
 	0: 16, // E5
 };
 
-export const buttons = [
-	document.getElementById("key0"),
-	document.getElementById("key1"),
-	document.getElementById("key2"),
-	document.getElementById("key3"),
-	document.getElementById("key4"),
-	document.getElementById("key5"),
-	document.getElementById("key6"),
-	document.getElementById("key7"),
-	document.getElementById("key8"),
-	document.getElementById("key9"),
-];
+export const buttons =
+	typeof document !== "undefined"
+		? Array.from({ length: 10 }, (_, i) => document.getElementById(`key${i}`))
+		: [];
 
 export function pressKey(i) {
 	const key = document.getElementById("key" + i);
@@ -34,25 +26,52 @@ export function unpressKey(i) {
 	key.classList.remove("numpad-key-pressed");
 }
 
-export function refreshOctave(base, modifier) {
-	const octaveDownIcon = document.getElementById("octave-down-icon");
-	const octaveMiddleIcon = document.getElementById("octave-middle-icon");
-	const octaveUpIcon = document.getElementById("octave-up-icon");
+export function setSustain(value) {
+	const sustainIndicator = document.getElementById("sustain-indicator");
+	if (value) {
+		sustainIndicator.classList.add("activated");
+	} else {
+		sustainIndicator.classList.remove("activated");
+	}
+}
 
-	if (modifier === 0) {
-		octaveDownIcon.classList.remove("selected");
-		octaveMiddleIcon.classList.add("selected");
-		octaveUpIcon.classList.remove("selected");
-	} else if (modifier === 1) {
-		octaveDownIcon.classList.remove("selected");
-		octaveMiddleIcon.classList.remove("selected");
-		octaveUpIcon.classList.add("selected");
-	} else if (modifier === -1) {
-		octaveDownIcon.classList.add("selected");
-		octaveMiddleIcon.classList.remove("selected");
-		octaveUpIcon.classList.remove("selected");
+export function refreshOctave(base, semitoneUp) {
+	const octaveIndicator = document.getElementById("octave-indicator");
+
+	if (base === 4) {
+		octaveIndicator.classList.remove("octave-up", "octave-down");
+	} else if (base === 5) {
+		octaveIndicator.classList.remove("octave-down");
+		octaveIndicator.classList.add("octave-up");
+	} else if (base === 3) {
+		octaveIndicator.classList.remove("octave-up");
+		octaveIndicator.classList.add("octave-down");
 	}
 
+	for (const [i, button] of buttons.entries()) {
+		const noteLabel = button.querySelector(".numpad-key-note");
+		noteLabel.innerText = getKeyLabel(i, base, semitoneUp);
+	}
+}
+
+export function setSemitoneUp(sharps) {
+	const sharpsIndicator = document.getElementById("sharps-indicator");
+	if (sharps) {
+		sharpsIndicator.classList.add("activated");
+	} else {
+		sharpsIndicator.classList.remove("activated");
+	}
+}
+
+export function loadButtons() {
+	for (const [i, button] of buttons.entries()) {
+		button.addEventListener("mousedown", pressKey.bind(null, i));
+		button.addEventListener("mouseup", unpressKey.bind(null, i));
+		button.addEventListener("mouseleave", unpressKey.bind(null, i));
+	}
+}
+
+export function getKeyLabel(key, base, semitoneUp) {
 	const semitonesToLetter = {
 		0: "C",
 		1: "C#",
@@ -68,17 +87,24 @@ export function refreshOctave(base, modifier) {
 		11: "B",
 	};
 
-	for (const [i, button] of buttons.entries()) {
-		const noteLabel = button.querySelector(".numpad-key-note");
-		const octave = Math.floor(keyToSemitones[i] / 12) + base + modifier;
-		noteLabel.innerText = `${semitonesToLetter[keyToSemitones[i] % 12]}${octave}`;
-	}
+	const octave = Math.floor(keyToSemitones[key] / 12) + base;
+	const semitone = (keyToSemitones[key] + semitoneUp) % 12;
+	const note = semitonesToLetter[semitone];
+	return `${note}${octave}`;
 }
 
-export function loadButtons() {
-	for (const [i, button] of buttons.entries()) {
-		button.addEventListener("mousedown", pressKey.bind(null, i));
-		button.addEventListener("mouseup", unpressKey.bind(null, i));
-		button.addEventListener("mouseleave", unpressKey.bind(null, i));
+export function setVolume(step) {
+	if (step === 0) {
+		document.getElementById("volume-icon-line1").style.visibility = "visible";
+		document.getElementById("volume-icon-line2").style.visibility = "hidden";
+		document.getElementById("volume-icon-line3").style.visibility = "hidden";
+	} else if (step === 1) {
+		document.getElementById("volume-icon-line1").style.visibility = "visible";
+		document.getElementById("volume-icon-line2").style.visibility = "visible";
+		document.getElementById("volume-icon-line3").style.visibility = "hidden";
+	} else if (step === 2) {
+		document.getElementById("volume-icon-line1").style.visibility = "visible";
+		document.getElementById("volume-icon-line2").style.visibility = "visible";
+		document.getElementById("volume-icon-line3").style.visibility = "visible";
 	}
 }

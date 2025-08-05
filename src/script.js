@@ -3,6 +3,9 @@ import { songs } from "./songs.js";
 import * as numpad from "./numpad.js";
 import * as utils from "./utils.js";
 
+const MIN_OCTAVE = 3;
+const MAX_OCTAVE = 5;
+
 const songSelect = document.getElementById("song-select");
 const songLabel = document.getElementById("song-label");
 const songCreationField = document.getElementById("song-field");
@@ -10,13 +13,18 @@ const playButton = document.getElementById("play-button");
 const submitButton = document.getElementById("submit-button");
 const volumeButton = document.getElementById("volume-button");
 
+const volumeSteps = 3;
+let volumeStep = 2;
+
 // Initialization
 loadSongList();
 numpad.loadButtons();
 addNumpadEventListeners();
 addSubmissionEventListeners();
 audioManager.loadPlayers();
-numpad.refreshOctave(audioManager.octaveBase, audioManager.octaveUp - audioManager.octaveDown);
+numpad.refreshOctave(audioManager.octaveBase, audioManager.semitoneUp);
+numpad.setSustain(audioManager.sustain);
+numpad.setSemitoneUp(audioManager.semitoneUp);
 if (songCreationField.value.trim() === "") {
 	submitButton.disabled = true;
 }
@@ -24,12 +32,34 @@ if (songCreationField.value.trim() === "") {
 // Events
 document.addEventListener("keydown", (event) => {
 	if (!event.repeat && (event.key === "+" || event.key === "=")) {
-		audioManager.setOctaveUp(true);
-		numpad.refreshOctave(audioManager.octaveBase, audioManager.octaveUp - audioManager.octaveDown);
+		audioManager.setOctaveBase(Math.min(audioManager.octaveBase + 1, MAX_OCTAVE));
+		numpad.refreshOctave(audioManager.octaveBase, audioManager.semitoneUp);
 	}
+
 	if (!event.repeat && event.key === "-") {
-		audioManager.setOctaveDown(true);
-		numpad.refreshOctave(audioManager.octaveBase, audioManager.octaveUp - audioManager.octaveDown);
+		audioManager.setOctaveBase(Math.max(audioManager.octaveBase - 1, MIN_OCTAVE));
+		numpad.refreshOctave(audioManager.octaveBase, audioManager.semitoneUp);
+	}
+
+	if (!event.repeat && event.key === "o") {
+		let octave = audioManager.octaveBase;
+		if (octave < MAX_OCTAVE) {
+			audioManager.setOctaveBase(Math.min(octave + 1, MAX_OCTAVE));
+		} else {
+			audioManager.setOctaveBase(MIN_OCTAVE);
+		}
+		numpad.refreshOctave(audioManager.octaveBase, audioManager.semitoneUp);
+	}
+
+	if (!event.repeat && event.key === " ") {
+		audioManager.setSemitoneUp(true);
+		numpad.setSemitoneUp(audioManager.semitoneUp);
+		numpad.refreshOctave(audioManager.octaveBase, audioManager.semitoneUp);
+	}
+
+	if (!event.repeat && event.key === "s") {
+		audioManager.setSustain(!audioManager.sustain);
+		numpad.setSustain(audioManager.sustain);
 	}
 
 	if (!event.repeat && utils.isNumeric(event.key)) {
@@ -39,17 +69,17 @@ document.addEventListener("keydown", (event) => {
 });
 
 document.addEventListener("keyup", (event) => {
-	if (!event.repeat && (event.key === "+" || event.key === "=")) {
-		audioManager.setOctaveUp(false);
-		numpad.refreshOctave(audioManager.octaveBase, audioManager.octaveUp - audioManager.octaveDown);
-	}
-	if (!event.repeat && event.key === "-") {
-		audioManager.setOctaveDown(false);
-		numpad.refreshOctave(audioManager.octaveBase, audioManager.octaveUp - audioManager.octaveDown);
+	if (!event.repeat && event.key === " ") {
+		audioManager.setSemitoneUp(false);
+		numpad.setSemitoneUp(audioManager.semitoneUp);
+		numpad.refreshOctave(audioManager.octaveBase, audioManager.semitoneUp);
 	}
 
 	if (utils.isNumeric(event.key)) {
 		numpad.unpressKey(event.key);
+		if (!audioManager.sustain) {
+			audioManager.stopKey(event.key);
+		}
 	}
 });
 
@@ -58,34 +88,9 @@ songSelect.addEventListener("change", (event) => {
 });
 
 volumeButton.addEventListener("click", (event) => {
-	if (volumePercentage === 100) {
-		volumePercentage = 33;
-
-		// HACK
-		document.getElementById("volume-icon-line1").style.visibility = "visible";
-		document.getElementById("volume-icon-line2").style.visibility = "hidden";
-		document.getElementById("volume-icon-line3").style.visibility = "hidden";
-	} else if (volumePercentage === 33) {
-		volumePercentage = 66;
-
-		document.getElementById("volume-icon-line1").style.visibility = "visible";
-		document.getElementById("volume-icon-line2").style.visibility = "visible";
-		document.getElementById("volume-icon-line3").style.visibility = "hidden";
-	} else if (volumePercentage === 66) {
-		volumePercentage = 100;
-
-		document.getElementById("volume-icon-line1").style.visibility = "visible";
-		document.getElementById("volume-icon-line2").style.visibility = "visible";
-		document.getElementById("volume-icon-line3").style.visibility = "visible";
-	}
-
-	for (const notePlayers of players) {
-		if (notePlayers != null) {
-			for (const player of notePlayers) {
-				player.volume = volumePercentage / 100.0;
-			}
-		}
-	}
+	volumeStep = (volumeStep + 1) % volumeSteps;
+	numpad.setVolume(volumeStep);
+	audioManager.setVolume((volumeStep + 1) / volumeSteps);
 });
 
 songCreationField.addEventListener("change", (event) => {

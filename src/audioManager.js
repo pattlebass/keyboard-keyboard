@@ -3,17 +3,21 @@ import * as numpad from "./numpad.js";
 
 export const players = [];
 
-export let volumePercentage = 100;
+export let volume = 1.0;
 export let octaveBase = 4;
-export let octaveUp = false;
-export let octaveDown = false;
+export let sustain = true;
+export let semitoneUp = false;
 
-export function setOctaveUp(value) {
-	octaveUp = value;
+export function setOctaveBase(value) {
+	octaveBase = value;
 }
 
-export function setOctaveDown(value) {
-	octaveDown = value;
+export function setSemitoneUp(value) {
+	semitoneUp = value;
+}
+
+export function setSustain(value) {
+	sustain = value;
 }
 
 export function loadPlayers() {
@@ -64,7 +68,7 @@ export function playNote(note) {
 }
 
 export function playKey(key) {
-	const note = 12 * (octaveBase + octaveUp - octaveDown + 1) + numpad.keyToSemitones[key];
+	const note = 12 * (octaveBase + 1) + numpad.keyToSemitones[key] + semitoneUp;
 	playNote(note);
 }
 
@@ -88,6 +92,43 @@ export async function playSong(sequence) {
 			await timer(200);
 		} else if (char === "\n") {
 			await timer(400);
+		}
+	}
+}
+
+export function stopKey(key, fadeDuration = 0.2) {
+	const note = 12 * (octaveBase + 1) + numpad.keyToSemitones[key] + semitoneUp;
+
+	const fadeSteps = 20;
+	const fadeInterval = (fadeDuration * 1000) / fadeSteps;
+
+	for (const player of players[note]) {
+		if (player && !player.paused && player.volume > 0 && player._isFading !== true) {
+			player._isFading = true;
+			let step = 0;
+			const fadeOut = setInterval(() => {
+				step++;
+				player.volume = volume * (1 - step / fadeSteps);
+				if (step >= fadeSteps) {
+					clearInterval(fadeOut);
+					player.pause();
+					player.currentTime = 0;
+					player.volume = volume;
+					player._isFading = false;
+				}
+			}, fadeInterval);
+		}
+	}
+}
+
+export function setVolume(value) {
+	volume = value;
+
+	for (const notePlayers of players) {
+		if (notePlayers != null) {
+			for (const player of notePlayers) {
+				player.volume = volume;
+			}
 		}
 	}
 }
