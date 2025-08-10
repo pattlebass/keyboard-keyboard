@@ -6,7 +6,7 @@ import { octaveBase } from "./audioManager.js";
 const indicatorIcon = fs.readFileSync("./public/icons/indicator-icon.svg", "utf8");
 
 export function createNumpad() {
-	const indicatorDescription = `S - Toggle Sustain\nO or -/+ - Change Octave\n# - Hold to Activate Sharps`;
+	const indicatorDescription = `S - Toggle Sustain\nO or -/+ - Change Octave\n# - Hold Space to Activate Sharps`;
 	return html`
 		<div class="indicators-container" title="${indicatorDescription}">
 			<div class="indicator">
