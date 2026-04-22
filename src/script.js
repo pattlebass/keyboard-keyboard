@@ -31,39 +31,70 @@ if (songCreationField.value.trim() === "") {
 
 // Events
 document.addEventListener("keydown", (event) => {
-	if (!event.repeat && (event.key === "+" || event.key === "=")) {
-		audioManager.setOctaveBase(Math.min(audioManager.octaveBase + 1, MAX_OCTAVE));
-		numpad.refreshOctave(audioManager.octaveBase, audioManager.semitoneUp);
-	}
+	const target_tag = event.target.tagName.toLowerCase();
 
-	if (!event.repeat && event.key === "-") {
-		audioManager.setOctaveBase(Math.max(audioManager.octaveBase - 1, MIN_OCTAVE));
-		numpad.refreshOctave(audioManager.octaveBase, audioManager.semitoneUp);
-	}
-
-	if (!event.repeat && event.key === "o") {
-		let octave = audioManager.octaveBase;
-		if (octave < MAX_OCTAVE) {
-			audioManager.setOctaveBase(Math.min(octave + 1, MAX_OCTAVE));
-		} else {
-			audioManager.setOctaveBase(MIN_OCTAVE);
+	if (event.key === "+" || event.key === "=") {
+		if (utils.isShortcutTarget(target_tag)) {
+			event.preventDefault();
+			event.stopPropagation();
+			if (!event.repeat) {
+				audioManager.setOctaveBase(Math.min(audioManager.octaveBase + 1, MAX_OCTAVE));
+				numpad.refreshOctave(audioManager.octaveBase, audioManager.semitoneUp);
+			}
 		}
-		numpad.refreshOctave(audioManager.octaveBase, audioManager.semitoneUp);
 	}
 
-	if (!event.repeat && event.key === " ") {
-		audioManager.setSemitoneUp(true);
-		numpad.setSemitoneUp(audioManager.semitoneUp);
-		numpad.refreshOctave(audioManager.octaveBase, audioManager.semitoneUp);
-		event.preventDefault();
+	if (event.key === "-") {
+		if (utils.isShortcutTarget(target_tag)) {
+			event.preventDefault();
+			event.stopPropagation();
+			if (!event.repeat) {
+				audioManager.setOctaveBase(Math.max(audioManager.octaveBase - 1, MIN_OCTAVE));
+				numpad.refreshOctave(audioManager.octaveBase, audioManager.semitoneUp);
+			}
+		}
 	}
 
-	if (!event.repeat && event.key === "s") {
-		audioManager.setSustain(!audioManager.sustain);
-		numpad.setSustain(audioManager.sustain);
+	if (event.key === "o") {
+		if (utils.isShortcutTarget(target_tag)) {
+			event.preventDefault();
+			event.stopPropagation();
+			if (!event.repeat) {
+				let octave = audioManager.octaveBase;
+				if (octave < MAX_OCTAVE) {
+					audioManager.setOctaveBase(Math.min(octave + 1, MAX_OCTAVE));
+				} else {
+					audioManager.setOctaveBase(MIN_OCTAVE);
+				}
+				numpad.refreshOctave(audioManager.octaveBase, audioManager.semitoneUp);
+			}
+		}
 	}
 
-	if (!event.repeat && utils.isNumeric(event.key)) {
+	if (event.key === " ") {
+		if (utils.isShortcutTarget(target_tag)) {
+			event.preventDefault();
+			event.stopPropagation();
+			if (!event.repeat) {
+				audioManager.setSemitoneUp(true);
+				numpad.setSemitoneUp(audioManager.semitoneUp);
+				numpad.refreshOctave(audioManager.octaveBase, audioManager.semitoneUp);
+			}
+		}
+	}
+
+	if (event.key === "s") {
+		if (utils.isShortcutTarget(target_tag)) {
+			event.preventDefault();
+			event.stopPropagation();
+			if (!event.repeat) {
+				audioManager.setSustain(!audioManager.sustain);
+				numpad.setSustain(audioManager.sustain);
+			}
+		}
+	}
+
+	if (utils.isNumeric(event.key) && !event.repeat) {
 		playKey(Number(event.key));
 		numpad.pressKey(event.key);
 	}
@@ -121,7 +152,7 @@ function addSubmissionEventListeners() {
 
 function playKey(key) {
 	audioManager.playNote(
-		audioManager.getNoteFromKey(key, audioManager.octaveBase, audioManager.semitoneUp)
+		audioManager.getNoteFromKey(key, audioManager.octaveBase, audioManager.semitoneUp),
 	);
 }
 

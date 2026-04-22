@@ -9,3 +9,7 @@ export function isNumeric(str) {
 		!isNaN(parseFloat(str))
 	); // ...and ensure strings of whitespace fail
 }
+
+export function isShortcutTarget(targetTag) {
+	return targetTag !== "input" && targetTag !== "textarea";
+}
