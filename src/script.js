@@ -141,7 +141,12 @@ function loadSongList() {
 
 function addNumpadEventListeners() {
 	for (const [i, button] of numpad.buttons.entries()) {
-		button.addEventListener("click", playKey.bind(null, i));
+		button.addEventListener("mousedown", playKey.bind(null, i));
+		button.addEventListener("mouseup", () => {
+			if (!audioManager.sustain) {
+				audioManager.stopKey(i);
+			}
+		});
 	}
 }
 
